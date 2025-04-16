@@ -24,14 +24,7 @@ def seed_database():
             password_hash=generate_password_hash("securepass"),
             profile_image="https://via.placeholder.com/150"
         )
-        user3 = User(
-            username="derrick",
-            email="derrick@email.com",
-            password_hash=generate_password_hash("5114"),
-            profile_image="https://via.placeholder.com/150"
-        )
-
-        db.session.add_all([user1, user2, user3])
+        db.session.add_all([user1, user2])
         db.session.commit()
 
         # Creating Posts
