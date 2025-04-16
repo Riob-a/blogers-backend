@@ -5,6 +5,9 @@ from werkzeug.security import generate_password_hash
 from datetime import datetime
 from models import db, User, Post, Comment  # Adjust based on your app structure
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def create_app():
     app = Flask(__name__)
