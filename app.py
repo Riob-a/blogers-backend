@@ -19,7 +19,8 @@ from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'secret_key'
 
@@ -36,7 +37,6 @@ cloudinary.config(
 # print(os.getenv("CLOUDINARY_API_SECRET"))  # Debugging
 
 db.init_app(app)
-# db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 CORS(app)
 jwt = JWTManager(app)
