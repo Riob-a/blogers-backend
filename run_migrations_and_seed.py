@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from flask_migrate import upgrade
 from werkzeug.security import generate_password_hash
-from models import db, User, Post, Comment
+from models import db, User, Post, Comment, Like
 from app import app  # Import your actual Flask app
 
 def seed_database():
