@@ -1,23 +1,14 @@
 #!/usr/bin/env python3
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import upgrade
 from werkzeug.security import generate_password_hash
-from datetime import datetime
-from models import db, User, Post, Comment  # Adjust based on your app structure
-
-def create_app():
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db.init_app(app)
-    return app
+from models import db, User, Post, Comment
+from app import app  # Import your actual Flask app
 
 def seed_database():
-    app = create_app()
-
     with app.app_context():
-        db.drop_all()
-        db.create_all()
+        if User.query.first():
+            print("Data already exists. Skipping seeding.")
+            return
 
         # Creating Users
         user1 = User(
@@ -26,15 +17,21 @@ def seed_database():
             password_hash=generate_password_hash("password123"),
             profile_image="https://via.placeholder.com/150"
         )
-        
+
         user2 = User(
             username="jane_doe",
             email="jane@example.com",
             password_hash=generate_password_hash("securepass"),
             profile_image="https://via.placeholder.com/150"
         )
+        user3 = User(
+            username="derrick",
+            email="derrick@email.com",
+            password_hash=generate_password_hash("5114"),
+            profile_image="https://via.placeholder.com/150"
+        )
 
-        db.session.add_all([user1, user2])
+        db.session.add_all([user1, user2, user3])
         db.session.commit()
 
         # Creating Posts
@@ -71,5 +68,14 @@ def seed_database():
 
         print("Database seeded successfully!")
 
+def run():
+    with app.app_context():
+        print(" Running database migrations...")
+        upgrade()
+        print("(>_<) Migrations complete.")
+
+        print("Seeding database...")
+        seed_database()
+
 if __name__ == '__main__':
-    seed_database()
+    run()
