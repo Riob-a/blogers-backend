@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 
 from flask_jwt_extended import JWTManager,jwt_required, get_jwt
-from models import db, User, Post, Comment, Genre, Like
+from models import db, User, Post, Comment, Genre, Like, Dislike
 from routes.auth_routes import auth_bp
 from routes.post_routes import post_bp
 from routes.user_routes import user_bp
