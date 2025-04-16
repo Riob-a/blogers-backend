@@ -4,10 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 from models import db, User, Post, Comment  # Adjust based on your app structure
+import os
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     return app
@@ -34,7 +35,14 @@ def seed_database():
             profile_image="https://via.placeholder.com/150"
         )
 
-        db.session.add_all([user1, user2])
+        user3 = User(
+            username="derrick",
+            email="derrick@email.com",
+            password_hash=generate_password_hash("5114"),
+            profile_image="https://via.placeholder.com/150"
+        )
+
+        db.session.add_all([user1, user2, user3])
         db.session.commit()
 
         # Creating Posts
