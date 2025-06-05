@@ -1,8 +1,8 @@
-"""Create likes table
+"""init mig
 
-Revision ID: 2c049e930067
+Revision ID: 241d92ac6ab6
 Revises: 
-Create Date: 2025-04-16 14:46:33.091376
+Create Date: 2025-06-05 17:55:15.740068
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2c049e930067'
+revision = '241d92ac6ab6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -48,8 +48,8 @@ def upgrade():
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=80), nullable=False),
-    sa.Column('content', sa.String(length=500), nullable=False),
+    sa.Column('title', sa.String(length=100), nullable=False),
+    sa.Column('content', sa.Text(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
