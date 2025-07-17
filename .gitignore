@@ -1,3 +1,4 @@
 .env
 run_flask.sh
 myenv
+__pycache__/
