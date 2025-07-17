@@ -16,15 +16,17 @@ from cloudinary.uploader import upload
 import cloudinary.api
 
 from dotenv import load_dotenv
+load_dotenv()
 import os
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_DATABASE_URL'] = os.environ.get('DATABASE_URL')
+
+print("DATABASE_URL:", os.environ.get("DATABASE_URL"))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'secret_key'
 
-load_dotenv()
 
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
